@@ -1,26 +1,58 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Brand palette */
+  --color-cream: #FDF6EC;
+  --color-cream-dark: #F5EDD8;
+  --color-parchment: #FFF8EE;
+
+  --color-maroon: #7B1C1C;
+  --color-maroon-light: #9B2626;
+  --color-maroon-dark: #5A1010;
+  --color-maroon-pale: #FDF0F0;
+
+  --color-saffron: #C77B0A;
+  --color-saffron-light: #E8960D;
+  --color-saffron-pale: #FEF3DC;
+
+  --color-forest: #2D6A4F;
+  --color-forest-light: #40916C;
+  --color-forest-pale: #E8F5EE;
+
+  --color-warm-text: #1C0F0F;
+  --color-medium-text: #5C3333;
+  --color-light-text: #9B7070;
+  --color-card-bg: #FFFBF4;
+  --color-border: #EDD5B8;
+
+  /* Fonts */
+  --font-display: var(--font-playfair);
+  --font-sans: var(--font-jakarta);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@utility font-display {
+  font-family: var(--font-playfair, "Playfair Display", serif);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #FDF6EC;
+  color: #1C0F0F;
+  font-family: var(--font-jakarta, "Plus Jakarta Sans", sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #FDF6EC; }
+::-webkit-scrollbar-thumb { background: #C77B0A; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #7B1C1C; }
+
+/* Decorative dot pattern */
+.dot-pattern {
+  background-image: radial-gradient(circle, #EDD5B8 1px, transparent 1px);
+  background-size: 28px 28px;
 }
