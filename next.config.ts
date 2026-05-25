@@ -1,8 +1,7 @@
 import type { NextConfig } from "next";
 
-// Set NEXT_PUBLIC_BASE_PATH to "/repo-name" for project pages (username.github.io/repo-name)
-// Leave empty for user/org pages (username.github.io)
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+// Your GitHub repo is "LakshmiRasoi" → site lives at crazzylazy.github.io/LakshmiRasoi
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "/LakshmiRasoi";
 
 const nextConfig: NextConfig = {
   output: "export",       // static HTML export — required for GitHub Pages
