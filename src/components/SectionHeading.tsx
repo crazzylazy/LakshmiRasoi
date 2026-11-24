@@ -22,11 +22,11 @@ export function SectionHeading({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.65, ease: "easeOut" }}
-      className={`${centered ? "text-center" : ""} mb-12 md:mb-16`}
+      className={`${centered ? "text-center" : ""} mb-8 md:mb-10`}
     >
       {badge && (
         <span
-          className={`inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-[0.15em] uppercase mb-4 ${
+          className={`inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-[0.15em] uppercase mb-3 ${
             light
               ? "bg-white/20 text-white"
               : "bg-saffron-pale text-saffron border border-saffron/20"
@@ -36,14 +36,14 @@ export function SectionHeading({
         </span>
       )}
       <h2
-        className={`font-display text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.15] ${
+        className={`font-display text-3xl md:text-4xl lg:text-[2.75rem] font-bold leading-[1.15] ${
           light ? "text-white" : "text-warm-text"
         }`}
         dangerouslySetInnerHTML={{ __html: title }}
       />
       {subtitle && (
         <p
-          className={`mt-4 text-base md:text-lg leading-relaxed max-w-2xl ${
+          className={`mt-3 text-base md:text-lg leading-relaxed max-w-2xl ${
             centered ? "mx-auto" : ""
           } ${light ? "text-white/75" : "text-medium-text"}`}
         >

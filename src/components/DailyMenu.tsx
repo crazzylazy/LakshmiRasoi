@@ -1,148 +1,143 @@
 "use client";
+import Image from "next/image";
 import { motion } from "framer-motion";
+import { MessageCircle } from "lucide-react";
 import { SectionHeading } from "./SectionHeading";
+import { WHATSAPP_MESSAGES, waLink } from "@/lib/site";
 
-const menuItems = [
+// What every tiffin contains. Two slots stay the same; two change daily.
+const tiffinSlots = [
   {
-    emoji: "🫓",
-    name: "Roti / Chapati",
-    description: "Soft, freshly made wheat rotis — 2 to 3 per serving.",
-    category: "Bread",
-    color: "#FEF3DC",
-    accent: "#C77B0A",
+    img: "/images/slot-roti.jpg",
+    name: "4 Roti",
+    desc: "Fresh wheat roti with desi ghee, made just before packing.",
+    fixed: true,
   },
   {
-    emoji: "🍚",
-    name: "Steamed Rice",
-    description: "Fluffy basmati or regular rice, perfectly cooked.",
-    category: "Grain",
-    color: "#E8F5EE",
-    accent: "#2D6A4F",
+    img: "/images/slot-sabzi.jpg",
+    name: "Sabzi",
+    desc: "Seasonal vegetables from Hisar mandis. Aloo gobhi today, bhindi tomorrow.",
+    fixed: false,
   },
   {
-    emoji: "🍲",
-    name: "Dal",
-    description: "Rotating dal varieties — toor, moong, masoor — tempered fresh.",
-    category: "Protein",
-    color: "#FDF0F0",
-    accent: "#7B1C1C",
+    img: "/images/slot-dal.jpg",
+    name: "Dal or Chawal",
+    desc: "Dal tadka, kadhi, chole or kale chane, with rice on the side.",
+    fixed: false,
   },
   {
-    emoji: "🥘",
-    name: "Seasonal Sabzi",
-    description: "Freshly cooked vegetable curry using market-fresh produce.",
-    category: "Vegetable",
-    color: "#FEF3DC",
-    accent: "#C77B0A",
-  },
-  {
-    emoji: "🥗",
-    name: "Salad / Pickle",
-    description: "Sliced cucumber, carrot or homemade pickle for crunch.",
-    category: "Side",
-    color: "#E8F5EE",
-    accent: "#2D6A4F",
-  },
-  {
-    emoji: "✨",
-    name: "Weekly Special",
-    description: "A surprise dish — biryani, kheer, or a regional favourite.",
-    category: "Special",
-    color: "#FDF0F0",
-    accent: "#7B1C1C",
+    img: "/images/slot-salad.jpg",
+    name: "Salad or Achar",
+    desc: "Cucumber, tomato and onion, or homemade achar or raita.",
+    fixed: true,
   },
 ];
 
-const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+// Dishes taken from real menu cards shared on WhatsApp
+const recentDishes: { name: string; img?: string }[] = [
+  { name: "Aloo Gobhi", img: "/images/hero-thali.jpg" },
+  { name: "Chole", img: "/images/hero-chole.jpg" },
+  { name: "Bhindi", img: "/images/hero-bhindi.jpg" },
+  { name: "Kale Chane", img: "/images/hero-chane.jpg" },
+  { name: "Dal Tadka" },
+  { name: "Tori" },
+  { name: "Petha" },
+  { name: "Rayata" },
+  { name: "Chole Masala" },
+];
 
 export default function DailyMenu() {
+
   return (
     <section id="menu" className="py-20 md:py-28 bg-parchment overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="Daily Menu"
-          title="What's on your plate today"
-          subtitle="Every meal is freshly prepared each morning. Our menu rotates daily to keep it interesting and nutritionally diverse."
+          title="New dishes every day. Same full thali."
+          subtitle="The sabzi and dal change daily, so you never eat the same thing twice in a row. What's in the box never changes."
         />
 
-        {/* Day selector — decorative */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="flex justify-center gap-2 flex-wrap mb-14"
-        >
-          {days.map((day, i) => (
-            <div
-              key={day}
-              className={`px-4 py-2 rounded-full text-sm font-semibold border transition-all duration-200 ${
-                i === 0
-                  ? "bg-maroon text-cream border-maroon shadow-[0_4px_12px_rgba(123,28,28,0.3)]"
-                  : "bg-card-bg border-border text-medium-text hover:border-saffron hover:text-saffron cursor-pointer"
-              }`}
-            >
-              {day}
-            </div>
-          ))}
-        </motion.div>
-
-        {/* Menu grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {menuItems.map((item, i) => (
+        {/* What's always in the tiffin */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {tiffinSlots.map((slot, i) => (
             <motion.div
-              key={item.name}
+              key={slot.name}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.55, delay: i * 0.08, ease: "easeOut" }}
-              whileHover={{ y: -4, scale: 1.01 }}
-              className="flex items-start gap-4 p-5 bg-card-bg border border-border rounded-2xl shadow-sm hover:shadow-[0_8px_24px_rgba(28,15,15,0.08)] transition-all duration-200"
+              className={`flex flex-col gap-2.5 p-5 bg-card-bg rounded-2xl ${
+                slot.fixed ? "border border-border" : "border-[1.5px] border-dashed border-saffron"
+              }`}
             >
-              {/* Icon */}
-              <div
-                className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0 shadow-sm"
-                style={{ background: item.color }}
+              <span className="relative w-16 h-16 rounded-full overflow-hidden border-[3px] border-white shadow-[0_6px_16px_rgba(28,15,15,0.15)]">
+                <Image src={slot.img} alt="" fill sizes="64px" className="object-cover" />
+              </span>
+              <span
+                className={`self-start text-[11px] font-extrabold tracking-[0.08em] uppercase rounded-full px-2.5 py-0.5 ${
+                  slot.fixed ? "bg-forest-pale text-forest" : "bg-saffron-pale text-saffron"
+                }`}
               >
-                {item.emoji}
-              </div>
-
-              {/* Content */}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center justify-between gap-2 mb-1">
-                  <h3 className="font-bold text-warm-text text-base">{item.name}</h3>
-                  <span
-                    className="text-[10px] font-bold px-2.5 py-0.5 rounded-full flex-shrink-0"
-                    style={{ background: item.color, color: item.accent }}
-                  >
-                    {item.category}
-                  </span>
-                </div>
-                <p className="text-light-text text-sm leading-relaxed">{item.description}</p>
-              </div>
+                {slot.fixed ? "Every day" : "Changes daily"}
+              </span>
+              <h3 className="font-display font-bold text-xl text-warm-text">{slot.name}</h3>
+              <p className="text-medium-text text-sm leading-relaxed">{slot.desc}</p>
             </motion.div>
           ))}
         </div>
 
-        {/* Note */}
+        {/* Dishes from recent menus */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.55, delay: 0.2 }}
+          className="mt-6 p-5 sm:p-6 bg-card-bg border border-border rounded-2xl flex flex-col gap-4"
+        >
+          <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+            <h3 className="font-display font-bold text-lg text-warm-text">Dishes from our recent menus</h3>
+            <span className="text-light-text text-xs">Taken from the menus we sent on WhatsApp</span>
+          </div>
+          <ul className="flex flex-wrap gap-2">
+            {recentDishes.map((dish) => (
+              <li
+                key={dish.name}
+                className={`inline-flex items-center gap-2 bg-white border border-border rounded-full text-sm font-semibold text-warm-text py-1 pr-3.5 ${
+                  dish.img ? "pl-1" : "pl-3.5"
+                }`}
+              >
+                {dish.img && (
+                  <span className="relative w-7 h-7 rounded-full overflow-hidden flex-shrink-0">
+                    <Image src={dish.img} alt="" fill sizes="28px" className="object-cover" />
+                  </span>
+                )}
+                {dish.name}
+              </li>
+            ))}
+            <li className="inline-flex items-center border border-dashed border-border rounded-full text-sm font-semibold text-light-text px-3.5 py-1">
+              + something new every day
+            </li>
+          </ul>
+        </motion.div>
+
+        {/* Today's menu CTA */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-          className="mt-10 p-5 bg-saffron-pale border border-saffron/20 rounded-2xl text-center"
+          transition={{ delay: 0.3 }}
+          className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 text-center"
         >
-          <p className="text-saffron font-semibold text-sm">
-            🌟 Menu rotates daily. Special items added on weekends & festivals.
-            <a
-              href="https://wa.me/917988267228?text=Can%20I%20get%20today%27s%20menu%3F"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline ml-1 hover:text-maroon transition-colors"
-            >
-              Ask us today&apos;s menu
-            </a>
-          </p>
+          <a
+            href={waLink(WHATSAPP_MESSAGES.todaysMenu)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1ebe5b] text-white text-sm font-bold px-6 py-3 rounded-full transition-all duration-200 hover:-translate-y-0.5"
+          >
+            <MessageCircle className="w-4 h-4" />
+            Get today&apos;s menu on WhatsApp
+          </a>
+          <p className="text-medium-text text-sm">We share it every morning.</p>
         </motion.div>
       </div>
     </section>

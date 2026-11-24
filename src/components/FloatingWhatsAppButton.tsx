@@ -3,15 +3,15 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X } from "lucide-react";
 
-const WHATSAPP_NUMBER = "917988267228";
-const WHATSAPP_MSG = encodeURIComponent("Hello! I'd like to know more about Lakshmi Rasoi.");
+import { WHATSAPP_MESSAGES, waLink } from "@/lib/site";
 
 export default function FloatingWhatsAppButton() {
   const [hovered, setHovered] = useState(false);
   const [dismissed, setDismissed] = useState(false);
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
+    // Hidden on mobile: the sticky bottom CTA bar covers small screens
+    <div className="fixed bottom-6 right-6 z-50 hidden md:flex flex-col items-end gap-2">
       {/* Tooltip bubble */}
       <AnimatePresence>
         {hovered && (
@@ -27,7 +27,7 @@ export default function FloatingWhatsAppButton() {
         )}
       </AnimatePresence>
 
-      {/* Nudge tooltip — shown on load, dismissable */}
+      {/* Nudge tooltip: shown on load, dismissable */}
       <AnimatePresence>
         {!dismissed && !hovered && (
           <motion.div
@@ -51,7 +51,7 @@ export default function FloatingWhatsAppButton() {
 
       {/* Main button */}
       <motion.a
-        href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
+        href={waLink(WHATSAPP_MESSAGES.general)}
         target="_blank"
         rel="noopener noreferrer"
         onHoverStart={() => setHovered(true)}

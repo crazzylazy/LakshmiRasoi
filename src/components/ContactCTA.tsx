@@ -1,140 +1,114 @@
 "use client";
 import { motion } from "framer-motion";
-import { MessageCircle, Phone, MapPin, Clock } from "lucide-react";
+import { MessageCircle, Phone, MapPin, Clock, Check } from "lucide-react";
 
-const WHATSAPP_NUMBER = "917988267228";
-const PHONE_NUMBER = "+91 79882 67228";
-const WHATSAPP_MSG = encodeURIComponent("Hello! I'd like to start my daily meal plan today.");
+import { SITE, WHATSAPP_MESSAGES, waLink } from "@/lib/site";
 
-const contactDetails = [
-  {
-    icon: Phone,
-    label: "Call Us",
-    value: PHONE_NUMBER,
-    href: `tel:${PHONE_NUMBER}`,
-    color: "rgba(255,255,255,0.15)",
-  },
-  {
-    icon: MapPin,
-    label: "Address",
-    value: "111SF, Marvel City, SEC-1, Hisar, Haryana – 125001",
-    href: "https://maps.google.com/maps?q=29.235105629799417,75.77704615506661",
-    color: "rgba(255,255,255,0.15)",
-  },
-  {
-    icon: Clock,
-    label: "Service Hours",
-    value: "Mon–Sat, 8 AM – 9 PM",
-    href: null,
-    color: "rgba(255,255,255,0.15)",
-  },
+function InstagramIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <rect x="2" y="2" width="20" height="20" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" />
+    </svg>
+  );
+}
+
+const points = [
+  "Trial tiffin for ₹59, no commitment",
+  "Delivered hot within 3 km of Marvel City",
+  "Plans from ₹1,799 with 10% off",
 ];
 
 export default function ContactCTA() {
   return (
-    <section
-      id="contact"
-      className="py-20 md:py-28 relative overflow-hidden"
-      style={{
-        background: "linear-gradient(135deg, #5A1010 0%, #7B1C1C 40%, #9B2626 100%)",
-      }}
-    >
-      {/* Background pattern */}
-      <div
-        className="absolute inset-0 opacity-10 pointer-events-none"
-        style={{
-          backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)",
-          backgroundSize: "32px 32px",
-        }}
-      />
-
-      {/* Glow */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] pointer-events-none"
-        style={{
-          background: "radial-gradient(ellipse, rgba(199,123,10,0.2) 0%, transparent 70%)",
-        }}
-      />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        {/* Heading */}
+    <section id="contact" className="py-16 md:py-20 bg-cream">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="text-center mb-14"
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="relative overflow-hidden rounded-3xl px-6 py-10 sm:px-10 md:px-14 md:py-14 shadow-[0_24px_60px_rgba(123,28,28,0.3)]"
+          style={{ background: "linear-gradient(120deg, #5A1010 0%, #7B1C1C 55%, #9B2626 100%)" }}
         >
-          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-[0.15em] uppercase mb-5 bg-white/15 text-saffron-pale border border-white/20">
-            Get Started Today
-          </span>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-cream leading-tight mb-5">
-            Start your daily
-            <br />
-            <span className="text-saffron-light">meal plan today.</span>
-          </h2>
-          <p className="text-cream/70 text-lg max-w-xl mx-auto">
-            Fresh, homemade meals await you. Reach out on WhatsApp or give us a
-            call — we&apos;re happy to answer any questions.
-          </p>
-        </motion.div>
+          <div
+            aria-hidden="true"
+            className="absolute -top-24 -right-24 w-72 h-72 rounded-full pointer-events-none"
+            style={{ background: "radial-gradient(circle, rgba(232,150,13,0.28), transparent 70%)" }}
+          />
 
-        {/* CTA buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.15 }}
-          className="flex flex-wrap items-center justify-center gap-4 mb-16"
-        >
-          <a
-            href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2.5 bg-[#25D366] hover:bg-[#20BD5A] text-white font-bold px-8 py-4 rounded-full text-sm transition-all duration-200 hover:shadow-[0_8px_24px_rgba(37,211,102,0.4)] hover:-translate-y-0.5"
-          >
-            <MessageCircle className="w-5 h-5 group-hover:scale-110 transition-transform" />
-            Order on WhatsApp
-          </a>
-          <a
-            href={`tel:${PHONE_NUMBER}`}
-            className="inline-flex items-center gap-2.5 bg-white/15 backdrop-blur-sm hover:bg-white/25 border border-white/30 text-cream font-bold px-8 py-4 rounded-full text-sm transition-all duration-200 hover:-translate-y-0.5"
-          >
-            <Phone className="w-5 h-5" />
-            Call Now
-          </a>
-        </motion.div>
-
-        {/* Contact info cards */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto"
-        >
-          {contactDetails.map((detail, i) => {
-            const Icon = detail.icon;
-            const content = (
-              <div className="flex items-center gap-3 p-5 rounded-2xl border border-white/15 bg-white/10 hover:bg-white/15 transition-all duration-200">
-                <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
-                  <Icon className="w-4 h-4 text-cream" />
-                </div>
-                <div>
-                  <p className="text-cream/60 text-xs font-semibold uppercase tracking-wide">{detail.label}</p>
-                  <p className="text-cream text-sm font-semibold mt-0.5">{detail.value}</p>
-                </div>
+          <div className="relative grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-10 lg:gap-12 items-center">
+            {/* Left: headline + actions */}
+            <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-6">
+              <h2 className="font-display text-4xl md:text-5xl lg:text-[2.75rem] xl:text-5xl font-bold text-cream leading-tight">
+                Start with a trial
+                <br />
+                <span className="text-saffron-light">tiffin today.</span>
+              </h2>
+              <div className="flex flex-wrap justify-center lg:justify-start gap-3">
+                <a
+                  href={waLink(WHATSAPP_MESSAGES.trial)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20BD5A] text-white font-bold px-6 py-3 rounded-full text-sm transition-all duration-200 hover:-translate-y-0.5"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  Order Trial on WhatsApp
+                </a>
+                <a
+                  href={SITE.phoneHref}
+                  className="inline-flex items-center gap-2 bg-white text-maroon hover:bg-saffron-pale font-bold px-6 py-3 rounded-full text-sm transition-all duration-200 hover:-translate-y-0.5"
+                >
+                  <Phone className="w-4 h-4" />
+                  Call Now
+                </a>
               </div>
-            );
+            </div>
 
-            return detail.href ? (
-              <a key={i} href={detail.href} target={detail.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
-                {content}
-              </a>
-            ) : (
-              <div key={i}>{content}</div>
-            );
-          })}
+            {/* Middle: why now + contact details */}
+            <div className="flex flex-col gap-5 text-cream">
+              <p className="font-bold text-lg leading-snug">One meal is all it takes. Your first tiffin can arrive at the next meal slot.</p>
+              <ul className="flex flex-col gap-2.5">
+                {points.map((point) => (
+                  <li key={point} className="flex items-center gap-2.5 text-sm text-cream/90">
+                    <span className="w-5 h-5 rounded-full bg-white/15 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-3 h-3 text-saffron-light" strokeWidth={3} />
+                    </span>
+                    {point}
+                  </li>
+                ))}
+              </ul>
+              <div className="pt-4 border-t border-white/15 flex flex-col gap-2 text-sm text-cream/80">
+                <a href={SITE.phoneHref} className="inline-flex items-center gap-2 hover:text-cream transition-colors">
+                  <Phone className="w-4 h-4 text-saffron-light flex-shrink-0" />
+                  <span className="font-semibold text-cream">{SITE.phoneDisplay}</span>
+                </a>
+                <a
+                  href={SITE.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-start gap-2 hover:text-cream transition-colors"
+                >
+                  <MapPin className="w-4 h-4 text-saffron-light flex-shrink-0 mt-0.5" />
+                  {SITE.address}
+                </a>
+                <p className="inline-flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-saffron-light flex-shrink-0" />
+                  Mon to Sat, 8 AM to 9 PM
+                </p>
+                <a
+                  href={SITE.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 hover:text-cream transition-colors"
+                >
+                  <InstagramIcon className="w-4 h-4 text-saffron-light flex-shrink-0" />
+                  Follow us on Instagram <span className="font-semibold text-cream">{SITE.instagramHandle}</span>
+                </a>
+              </div>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

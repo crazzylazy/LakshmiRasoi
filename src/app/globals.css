@@ -19,6 +19,9 @@
   --color-forest-light: #40916C;
   --color-forest-pale: #E8F5EE;
 
+  --color-gold: #B98A2F;
+  --color-gold-light: #D9B45B;
+
   --color-warm-text: #1C0F0F;
   --color-medium-text: #5C3333;
   --color-light-text: #9B7070;
@@ -44,6 +47,22 @@ body {
   font-family: var(--font-jakarta, "Plus Jakarta Sans", sans-serif);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: #C77B0A;
+  color: #FDF6EC;
+}
+
+/* Anchored sections clear the sticky navbar */
+section[id] {
+  scroll-margin-top: 84px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 ::-webkit-scrollbar { width: 5px; }

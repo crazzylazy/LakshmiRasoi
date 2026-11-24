@@ -1,47 +1,41 @@
 "use client";
+import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
-import { MessageCircle, ChevronDown } from "lucide-react";
-
-const WHATSAPP_NUMBER = "917988267228";
-const WHATSAPP_MSG = encodeURIComponent("Hello! I'd like to order your tiffin service.");
+import { MessageCircle, ChevronDown, Star, BadgeIndianRupee } from "lucide-react";
+import { WHATSAPP_MESSAGES, waLink } from "@/lib/site";
 
 const trustBadges = [
-  { icon: "🏠", label: "Homemade" },
-  { icon: "🌿", label: "Fresh Daily" },
-  { icon: "✓", label: "Hygienic Kitchen" },
+  { icon: "🏠", label: "100% Homemade" },
+  { icon: "🌿", label: "Pure Veg Always" },
+  { icon: "🧼", label: "Hygienic Kitchen" },
   { icon: "⏰", label: "On-time Delivery" },
+  { icon: "❤️", label: "Growing Daily" },
 ];
 
-const floatingCards = [
+const mosaicTiles = [
   {
-    top: "8%",
-    right: "4%",
-    rotate: 6,
-    delay: 0,
-    bg: "linear-gradient(135deg, #7B1C1C 0%, #9B2626 100%)",
-    label: "Today's Special",
-    sub: "Dal Makhani + Roti",
-    badge: "🍛",
+    src: "/images/hero-thali.jpg",
+    alt: "Full homemade thali with dal, aloo gobhi, rice, ghee rotis and salad",
+    label: "Full Thali · Dal, Chawal, Roti",
+    className: "row-span-4",
   },
   {
-    top: "38%",
-    right: "-2%",
-    rotate: -4,
-    delay: 0.4,
-    bg: "linear-gradient(135deg, #2D6A4F 0%, #40916C 100%)",
-    label: "Fresh & Healthy",
-    sub: "Seasonal Sabzi",
-    badge: "🥗",
+    src: "/images/hero-chole.jpg",
+    alt: "Chole with raita, achar and soft rotis",
+    label: "Chole · Raita · Achar",
+    className: "row-span-3",
   },
   {
-    top: "68%",
-    right: "8%",
-    rotate: 5,
-    delay: 0.8,
-    bg: "linear-gradient(135deg, #C77B0A 0%, #E8960D 100%)",
-    label: "Lunch Tiffin",
-    sub: "₹ 99 / meal",
-    badge: "🥘",
+    src: "/images/hero-bhindi.jpg",
+    alt: "Bhindi sabzi with yellow dal, salad and desi ghee rotis",
+    label: "Bhindi · Dal · Ghee Roti",
+    className: "row-span-3",
+  },
+  {
+    src: "/images/hero-chane.jpg",
+    alt: "Kale chane aloo gobhi sabzi with salad and desi ghee rotis",
+    label: "Kale Chane · Aloo Gobhi",
+    className: "row-span-2",
   },
 ];
 
@@ -72,7 +66,7 @@ export default function Hero() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 md:pt-32 md:pb-24 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left — content */}
+          {/* Left: content */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -83,55 +77,45 @@ export default function Hero() {
             <motion.div variants={itemVariants}>
               <span className="inline-flex items-center gap-2 bg-saffron-pale border border-saffron/25 text-saffron text-xs font-bold px-4 py-1.5 rounded-full tracking-[0.15em] uppercase mb-6">
                 <span className="w-1.5 h-1.5 rounded-full bg-saffron animate-pulse" />
-                Premium Tiffin Service
+                100% Pure Veg · Homemade Tiffin · Hisar
               </span>
             </motion.div>
 
-            {/* Brand name */}
+            {/* Headline */}
             <motion.h1
               variants={itemVariants}
-              className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold text-warm-text leading-[1.08] mb-4"
+              className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-warm-text leading-[1.1] mb-5"
             >
-              Lakshmi
+              Fresh homemade meals,
               <br />
-              <span className="text-maroon">Rasoi</span>
+              <span className="text-maroon">delivered daily.</span>
             </motion.h1>
 
             {/* Tagline */}
             <motion.p
               variants={itemVariants}
-              className="text-saffron text-sm font-bold tracking-[0.2em] uppercase mb-6"
+              className="text-saffron text-sm font-bold tracking-[0.2em] uppercase mb-5"
             >
-              Daily Tiffin & Meal Service
+              Lakshmi Rasoi · Daily Tiffin & Meal Service
             </motion.p>
-
-            {/* Headline */}
-            <motion.h2
-              variants={itemVariants}
-              className="font-display text-2xl sm:text-3xl font-bold text-warm-text leading-snug mb-4"
-            >
-              Fresh homemade meals,
-              <br />
-              <span className="text-maroon">delivered daily.</span>
-            </motion.h2>
 
             {/* Supporting text */}
             <motion.p
               variants={itemVariants}
               className="text-medium-text text-base md:text-lg leading-relaxed max-w-lg mb-8"
             >
-              Nutritious, hygienic, and comforting meals prepared with care for
-              students, professionals, and families. Taste the love in every
-              bite.
+              The comfort of ghar ka khana, without the daily cooking. Hygienic,
+              balanced and lovingly prepared tiffins for students, professionals
+              and families near Marvel City, Hisar, hot and on time, every single day.
             </motion.p>
 
             {/* CTA buttons */}
             <motion.div
               variants={itemVariants}
-              className="flex flex-wrap items-center gap-3 mb-10"
+              className="flex flex-wrap items-center gap-3 mb-5"
             >
               <a
-                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
+                href={waLink(WHATSAPP_MESSAGES.order)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-2.5 bg-maroon hover:bg-maroon-light text-cream font-bold px-7 py-3.5 rounded-full text-sm transition-all duration-200 hover:shadow-[0_8px_24px_rgba(123,28,28,0.35)] hover:-translate-y-0.5"
@@ -151,6 +135,11 @@ export default function Hero() {
               </a>
             </motion.div>
 
+            {/* Gentle urgency */}
+            <motion.p variants={itemVariants} className="text-light-text text-sm mb-8">
+              New here? <a href={waLink(WHATSAPP_MESSAGES.trial)} target="_blank" rel="noopener noreferrer" className="text-saffron font-semibold underline underline-offset-2 hover:text-maroon transition-colors">Start with a trial tiffin from ₹59</a>. No commitment.
+            </motion.p>
+
             {/* Trust badges */}
             <motion.div
               variants={itemVariants}
@@ -161,115 +150,69 @@ export default function Hero() {
                   key={badge.label}
                   className="flex items-center gap-1.5 bg-card-bg border border-border rounded-full px-3.5 py-1.5 text-xs font-semibold text-warm-text shadow-sm"
                 >
-                  <span>{badge.icon}</span>
+                  <span aria-hidden="true">{badge.icon}</span>
                   {badge.label}
                 </div>
               ))}
             </motion.div>
           </motion.div>
 
-          {/* Right — visual composition */}
-          <div className="relative h-[480px] lg:h-[580px] hidden md:block">
-            {/* Background circle */}
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 1, ease: "easeOut" }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[440px] h-[440px] rounded-full"
-              style={{
-                background: "radial-gradient(circle, rgba(199,123,10,0.12) 0%, rgba(253,246,236,0) 70%)",
-              }}
-            />
+          {/* Right: photo mosaic of real dishes */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
+            className="relative mx-auto w-full max-w-md lg:max-w-none"
+          >
+            <div className="grid grid-cols-2 grid-rows-[repeat(6,minmax(0,1fr))] gap-3 sm:gap-4 aspect-[4/4.4]">
+              {mosaicTiles.map((tile, i) => (
+                <motion.figure
+                  key={tile.src}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.3 + i * 0.12, ease: "easeOut" }}
+                  className={`group relative overflow-hidden rounded-3xl border-4 border-card-bg shadow-[0_16px_40px_rgba(28,15,15,0.16)] ${tile.className}`}
+                >
+                  <Image
+                    src={tile.src}
+                    alt={tile.alt}
+                    fill
+                    priority={i === 0}
+                    sizes="(max-width: 1024px) 45vw, 22vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                  <figcaption className="absolute top-2.5 left-2.5 max-w-[calc(100%-1.25rem)] bg-black/45 backdrop-blur-sm border border-white/20 text-white text-[11px] sm:text-xs font-semibold leading-tight rounded-full px-3 py-1.5">
+                    {tile.label}
+                  </figcaption>
+                </motion.figure>
+              ))}
+            </div>
 
-            {/* Main center card */}
+            {/* Rating + trial badge */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.85, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[55%] w-64 h-80 rounded-3xl overflow-hidden shadow-[0_24px_64px_rgba(28,15,15,0.18)]"
-              style={{
-                background: "linear-gradient(160deg, #FEF3DC 0%, #F5EDD8 40%, #EDD5B8 100%)",
-                rotate: -3,
-              }}
+              animate={{ y: [0, -7, 0] }}
+              transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
+              className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-card-bg border border-border rounded-2xl px-4 py-3 shadow-[0_12px_32px_rgba(28,15,15,0.18)] flex items-center gap-3 whitespace-nowrap"
             >
-              <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-                <div className="w-20 h-20 rounded-2xl bg-white/60 backdrop-blur-sm flex items-center justify-center text-4xl mb-4 shadow-sm">
-                  🍱
-                </div>
-                <p className="font-display font-bold text-warm-text text-xl leading-tight mb-1">
-                  Daily Tiffin
-                </p>
-                <p className="text-medium-text text-sm mb-4">
-                  Roti • Dal • Sabzi • Rice
-                </p>
-                <div className="flex items-center gap-1.5">
-                  {[...Array(5)].map((_, i) => (
-                    <span key={i} className="text-saffron text-sm">★</span>
-                  ))}
-                </div>
-                <p className="text-xs text-light-text mt-1">500+ happy customers</p>
+              <div className="flex items-center gap-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-3.5 h-3.5 fill-saffron text-saffron" />
+                ))}
               </div>
-              {/* Decorative circles */}
-              <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full bg-saffron/10" />
-              <div className="absolute -bottom-6 -left-6 w-20 h-20 rounded-full bg-maroon/8" />
+              <span className="w-px h-6 bg-border" aria-hidden="true" />
+              <div className="flex items-center gap-2">
+                <BadgeIndianRupee className="w-5 h-5 text-maroon" />
+                <p className="text-warm-text text-xs font-bold leading-tight">
+                  Trial tiffin ₹59
+                  <span className="block text-light-text font-medium">Plans from ₹1,799 (10% off)</span>
+                </p>
+              </div>
             </motion.div>
 
-            {/* Floating cards */}
-            {floatingCards.map((card, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{
-                  opacity: 1,
-                  scale: 1,
-                  y: [0, -8, 0],
-                }}
-                transition={{
-                  opacity: { duration: 0.6, delay: 0.5 + card.delay },
-                  scale: { duration: 0.6, delay: 0.5 + card.delay },
-                  y: {
-                    duration: 3 + i * 0.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: card.delay,
-                  },
-                }}
-                className="absolute w-44 rounded-2xl p-4 shadow-[0_8px_32px_rgba(28,15,15,0.2)]"
-                style={{
-                  top: card.top,
-                  right: card.right,
-                  rotate: card.rotate,
-                  background: card.bg,
-                }}
-              >
-                <div className="flex items-start gap-2.5">
-                  <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center text-xl flex-shrink-0">
-                    {card.badge}
-                  </div>
-                  <div>
-                    <p className="text-white font-bold text-sm leading-tight">{card.label}</p>
-                    <p className="text-white/75 text-xs mt-0.5">{card.sub}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-
-            {/* Decorative dots */}
-            {[...Array(6)].map((_, i) => (
-              <motion.div
-                key={i}
-                animate={{ y: [0, -6, 0], opacity: [0.4, 1, 0.4] }}
-                transition={{ duration: 2 + i * 0.3, repeat: Infinity, delay: i * 0.4 }}
-                className="absolute rounded-full bg-saffron"
-                style={{
-                  width: 6 + i * 2,
-                  height: 6 + i * 2,
-                  top: `${15 + i * 12}%`,
-                  left: `${5 + (i % 3) * 8}%`,
-                }}
-              />
-            ))}
-          </div>
+            <p className="absolute inset-x-0 -bottom-14 text-center text-[11px] italic text-light-text">
+              Image is for illustrations only.
+            </p>
+          </motion.div>
         </div>
       </div>
 
@@ -279,7 +222,7 @@ export default function Hero() {
         onClick={(e) => { e.preventDefault(); document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" }); }}
         animate={{ y: [0, 6, 0] }}
         transition={{ duration: 1.6, repeat: Infinity }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-light-text hover:text-saffron transition-colors duration-200 cursor-pointer"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center gap-1 text-light-text hover:text-saffron transition-colors duration-200 cursor-pointer"
       >
         <span className="text-xs font-semibold tracking-widest uppercase">Scroll</span>
         <ChevronDown className="w-4 h-4" />
