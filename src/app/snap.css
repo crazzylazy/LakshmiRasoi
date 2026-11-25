@@ -1,6 +1,6 @@
-/* Section-by-section snap scrolling on screens tall enough for every section (the tallest needs ~810px + 80px navbar).
+/* Section-by-section snap scrolling on screens tall enough for every section (the tallest needs ~815px + 80px navbar).
    Phones keep normal scrolling: tall content (plan builder, map) can't fit one phone screen. */
-@media (min-width: 1024px) and (min-height: 890px) {
+@media (min-width: 1024px) and (min-height: 900px) {
   html {
     scroll-snap-type: y mandatory;
     scroll-padding-top: 80px;
@@ -21,5 +21,12 @@
   body > footer,
   footer {
     scroll-snap-align: end;
+  }
+}
+
+/* Phones: tighter gaps between sections */
+@media (max-width: 767px) {
+  main > section[id]:not(#home) {
+    padding-block: 3.5rem;
   }
 }

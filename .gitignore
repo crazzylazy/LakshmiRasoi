@@ -42,3 +42,6 @@ next-env.d.ts
 
 # original source images (not used by the site)
 /images/
+
+# local backups
+/.backups/

@@ -51,9 +51,9 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.75, ease: "easeOut" }}
-            className="relative"
+            className="relative hidden md:block"
           >
-            {/* 2x2 image grid */}
+            {/* 2x2 image grid (tablet and desktop; phones see the hero photos) */}
             <div className="grid grid-cols-2 gap-4">
               {aboutImages.map((item, i) => (
                 <motion.div
@@ -105,14 +105,14 @@ export default function About() {
               belief: nobody in Hisar should have to miss ghar ka khana just
               because life got busy.
             </p>
-            <p className="text-medium-text text-base leading-relaxed mb-6">
+            <p className="hidden md:block text-medium-text text-base leading-relaxed mb-6">
               Today we cook for students away from home, busy professionals,
               PG residents tired of mess food, and families who want a reliable,
               hygienic kitchen they can trust every day.
             </p>
 
             {/* Values */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-3 mb-2 md:mb-6">
               {values.map((val, i) => (
                 <motion.div
                   key={i}
@@ -120,19 +120,19 @@ export default function About() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 * i, duration: 0.5 }}
-                  className="flex items-start gap-3 p-3.5 bg-card-bg border border-border rounded-2xl"
+                  className="flex items-center sm:items-start gap-2.5 sm:gap-3 p-3 sm:p-3.5 bg-card-bg border border-border rounded-2xl"
                 >
-                  <span className="text-2xl flex-shrink-0" aria-hidden="true">{val.icon}</span>
+                  <span className="text-xl sm:text-2xl flex-shrink-0" aria-hidden="true">{val.icon}</span>
                   <div>
-                    <p className="font-bold text-warm-text text-sm mb-0.5">{val.title}</p>
-                    <p className="text-light-text text-sm">{val.desc}</p>
+                    <p className="font-bold text-warm-text text-[13px] sm:text-sm leading-tight sm:mb-0.5">{val.title}</p>
+                    <p className="hidden sm:block text-light-text text-sm">{val.desc}</p>
                   </div>
                 </motion.div>
               ))}
             </div>
 
             {/* Stats row */}
-            <div className="grid grid-cols-4 gap-4 pt-5 border-t border-border">
+            <div className="hidden md:grid grid-cols-4 gap-4 pt-5 border-t border-border">
               {stats.map((stat) => (
                 <div key={stat.label} className="text-center">
                   <p className="font-display font-bold text-2xl text-maroon">{stat.value}</p>

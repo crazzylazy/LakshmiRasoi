@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import { useRef, useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { MessageCircle, ChevronDown, Star, BadgeIndianRupee } from "lucide-react";
 import { WHATSAPP_MESSAGES, waLink } from "@/lib/site";
@@ -48,6 +49,69 @@ const itemVariants: Variants = {
   hidden: { opacity: 0, y: 32 },
   show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
 };
+
+// Phones: one dish at a time in a swipeable row, with dots
+function MobileDishStrip() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+
+  const onScroll = () => {
+    const el = trackRef.current;
+    if (!el) return;
+    const card = el.firstElementChild as HTMLElement | null;
+    if (!card) return;
+    const step = card.offsetWidth + 12; // card width + gap-3
+    setActive(Math.min(mosaicTiles.length - 1, Math.max(0, Math.round(el.scrollLeft / step))));
+  };
+
+  const goTo = (i: number) => {
+    const el = trackRef.current;
+    const card = el?.children[i] as HTMLElement | undefined;
+    if (el && card) el.scrollTo({ left: card.offsetLeft - el.offsetLeft - 16, behavior: "smooth" });
+  };
+
+  return (
+    <div className="md:hidden">
+      <div
+        ref={trackRef}
+        onScroll={onScroll}
+        className="-mx-4 px-4 flex gap-3 overflow-x-auto snap-x snap-mandatory scroll-px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        aria-label="Our dishes, swipe to see more"
+      >
+        {mosaicTiles.map((tile, i) => (
+          <figure
+            key={tile.src}
+            className="relative shrink-0 w-[84%] aspect-[4/3] snap-start overflow-hidden rounded-3xl border-4 border-card-bg shadow-[0_12px_28px_rgba(28,15,15,0.14)] m-0"
+          >
+            <Image
+              src={tile.src}
+              alt={tile.alt}
+              fill
+              priority={i === 0}
+              sizes="84vw"
+              className="object-cover"
+            />
+            <figcaption className="absolute top-2.5 left-2.5 max-w-[calc(100%-1.25rem)] bg-black/45 backdrop-blur-sm border border-white/20 text-white text-[11px] font-semibold leading-tight rounded-full px-3 py-1.5">
+              {tile.label}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+      <div className="flex justify-center gap-2 mt-3">
+        {mosaicTiles.map((tile, i) => (
+          <button
+            key={tile.src}
+            type="button"
+            onClick={() => goTo(i)}
+            aria-label={`Show ${tile.label}`}
+            aria-current={active === i}
+            className={`h-2 rounded-full transition-all duration-300 ${active === i ? "w-6 bg-maroon" : "w-2 bg-border"}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function Hero() {
   return (
@@ -164,7 +228,9 @@ export default function Hero() {
             transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
             className="relative mx-auto w-full max-w-md lg:max-w-none"
           >
-            <div className="grid grid-cols-2 grid-rows-[repeat(6,minmax(0,1fr))] gap-3 sm:gap-4 aspect-[4/4.4]">
+            <MobileDishStrip />
+
+            <div className="hidden md:grid grid-cols-2 grid-rows-[repeat(6,minmax(0,1fr))] gap-3 sm:gap-4 aspect-[4/4.4]">
               {mosaicTiles.map((tile, i) => (
                 <motion.figure
                   key={tile.src}
@@ -192,7 +258,7 @@ export default function Hero() {
             <motion.div
               animate={{ y: [0, -7, 0] }}
               transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
-              className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-card-bg border border-border rounded-2xl px-4 py-3 shadow-[0_12px_32px_rgba(28,15,15,0.18)] flex items-center gap-3 whitespace-nowrap"
+              className="hidden md:flex absolute -bottom-5 left-1/2 -translate-x-1/2 bg-card-bg border border-border rounded-2xl px-4 py-3 shadow-[0_12px_32px_rgba(28,15,15,0.18)] items-center gap-3 whitespace-nowrap"
             >
               <div className="flex items-center gap-0.5">
                 {[...Array(5)].map((_, i) => (
@@ -209,7 +275,7 @@ export default function Hero() {
               </div>
             </motion.div>
 
-            <p className="absolute inset-x-0 -bottom-14 text-center text-[11px] italic text-light-text">
+            <p className="mt-2 md:mt-0 md:absolute md:inset-x-0 md:-bottom-14 text-center text-[11px] italic text-light-text">
               Image is for illustrations only.
             </p>
           </motion.div>

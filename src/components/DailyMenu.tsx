@@ -58,7 +58,7 @@ export default function DailyMenu() {
         />
 
         {/* What's always in the tiffin */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {tiffinSlots.map((slot, i) => (
             <motion.div
               key={slot.name}
@@ -66,22 +66,22 @@ export default function DailyMenu() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.55, delay: i * 0.08, ease: "easeOut" }}
-              className={`flex flex-col gap-2.5 p-5 bg-card-bg rounded-2xl ${
+              className={`flex flex-col items-center text-center sm:items-start sm:text-left gap-2 sm:gap-2.5 p-3.5 sm:p-5 bg-card-bg rounded-2xl ${
                 slot.fixed ? "border border-border" : "border-[1.5px] border-dashed border-saffron"
               }`}
             >
-              <span className="relative w-16 h-16 rounded-full overflow-hidden border-[3px] border-white shadow-[0_6px_16px_rgba(28,15,15,0.15)]">
+              <span className="relative w-12 h-12 sm:w-16 sm:h-16 rounded-full overflow-hidden border-[3px] border-white shadow-[0_6px_16px_rgba(28,15,15,0.15)]">
                 <Image src={slot.img} alt="" fill sizes="64px" className="object-cover" />
               </span>
               <span
-                className={`self-start text-[11px] font-extrabold tracking-[0.08em] uppercase rounded-full px-2.5 py-0.5 ${
+                className={`sm:self-start text-[10px] sm:text-[11px] font-extrabold tracking-[0.08em] uppercase rounded-full px-2.5 py-0.5 ${
                   slot.fixed ? "bg-forest-pale text-forest" : "bg-saffron-pale text-saffron"
                 }`}
               >
                 {slot.fixed ? "Every day" : "Changes daily"}
               </span>
-              <h3 className="font-display font-bold text-xl text-warm-text">{slot.name}</h3>
-              <p className="text-medium-text text-sm leading-relaxed">{slot.desc}</p>
+              <h3 className="font-display font-bold text-base sm:text-xl text-warm-text leading-tight">{slot.name}</h3>
+              <p className="hidden sm:block text-medium-text text-sm leading-relaxed">{slot.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -92,29 +92,29 @@ export default function DailyMenu() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.55, delay: 0.2 }}
-          className="mt-6 p-5 sm:p-6 bg-card-bg border border-border rounded-2xl flex flex-col gap-4"
+          className="mt-4 sm:mt-6 p-4 sm:p-6 bg-card-bg border border-border rounded-2xl flex flex-col gap-3 sm:gap-4"
         >
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
             <h3 className="font-display font-bold text-lg text-warm-text">Dishes from our recent menus</h3>
             <span className="text-light-text text-xs">Taken from the menus we sent on WhatsApp</span>
           </div>
-          <ul className="flex flex-wrap gap-2">
+          <ul className="flex flex-wrap gap-1.5 sm:gap-2">
             {recentDishes.map((dish) => (
               <li
                 key={dish.name}
-                className={`inline-flex items-center gap-2 bg-white border border-border rounded-full text-sm font-semibold text-warm-text py-1 pr-3.5 ${
-                  dish.img ? "pl-1" : "pl-3.5"
+                className={`inline-flex items-center gap-1.5 sm:gap-2 bg-white border border-border rounded-full text-xs sm:text-sm font-semibold text-warm-text py-1 pr-3 sm:pr-3.5 ${
+                  dish.img ? "pl-1" : "pl-3 sm:pl-3.5"
                 }`}
               >
                 {dish.img && (
-                  <span className="relative w-7 h-7 rounded-full overflow-hidden flex-shrink-0">
+                  <span className="relative w-6 h-6 sm:w-7 sm:h-7 rounded-full overflow-hidden flex-shrink-0">
                     <Image src={dish.img} alt="" fill sizes="28px" className="object-cover" />
                   </span>
                 )}
                 {dish.name}
               </li>
             ))}
-            <li className="inline-flex items-center border border-dashed border-border rounded-full text-sm font-semibold text-light-text px-3.5 py-1">
+            <li className="inline-flex items-center border border-dashed border-border rounded-full text-xs sm:text-sm font-semibold text-light-text px-3 sm:px-3.5 py-1">
               + something new every day
             </li>
           </ul>

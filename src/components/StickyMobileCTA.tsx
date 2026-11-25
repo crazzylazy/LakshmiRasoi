@@ -5,15 +5,29 @@ import { MessageCircle, Phone } from "lucide-react";
 import { SITE, WHATSAPP_MESSAGES, waLink } from "@/lib/site";
 
 export default function StickyMobileCTA() {
-  const [visible, setVisible] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [inPlans, setInPlans] = useState(false);
 
   useEffect(() => {
     // Appear after the user scrolls past the hero
-    const onScroll = () => setVisible(window.scrollY > window.innerHeight * 0.6);
+    const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.6);
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    // Step aside in the plan builder: it has its own sticky Send button there
+    const plans = document.getElementById("plans");
+    if (!plans) return;
+    const io = new IntersectionObserver(([entry]) => setInPlans(entry.isIntersecting), {
+      rootMargin: "-30% 0px -30% 0px",
+    });
+    io.observe(plans);
+    return () => io.disconnect();
+  }, []);
+
+  const visible = scrolled && !inPlans;
 
   return (
     <AnimatePresence>
